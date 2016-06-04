@@ -7,10 +7,8 @@ var $ = require('gulp-load-plugins')({lazy: true});
 * Can pass in a string, object or array.
 */
 module.exports = {
-
     message: message,
     fileEvent: fileEvent
-
 };
 
 /**

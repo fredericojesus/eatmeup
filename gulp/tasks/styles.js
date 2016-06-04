@@ -3,7 +3,7 @@
 var gulp = require('gulp');
 var config = require('../config')();
 var log = require('../util/log');
-var serve = require('../util/serve');
+// var serve = require('../util/serve');
 var browserSync = require('browser-sync');
 
 var $ = require('gulp-load-plugins')({lazy: true});
@@ -12,7 +12,7 @@ var $ = require('gulp-load-plugins')({lazy: true});
  * Compile stylus to css
  * @return {Stream}
  */
-gulp.task('styles', function() {
+gulp.task('styles', ['clean-styles'], function() {
     log.message('Compiling Stylus --> CSS');
 
     return gulp
@@ -30,7 +30,7 @@ gulp.task('styles', function() {
 /**
  * Wactch stylus files in dev environment
  */
-gulp.task('stylus-watcher', function () {
-    serve(true /*isDev*/);
-    gulp.watch([config.stylus], ['styles', browserSync.reload]);
-});
+// gulp.task('stylus-watcher', function () {
+//     serve(true /*isDev*/);
+//     gulp.watch([config.stylus], ['styles', browserSync.reload]);
+// });
