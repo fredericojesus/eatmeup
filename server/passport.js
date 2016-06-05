@@ -26,89 +26,62 @@ module.exports = function (passport) {
     // =========================================================================
     // LOCAL LOGIN =============================================================
     // =========================================================================
-    passport.use('local-login', new LocalStrategy({
-        // by default, local strategy uses username and password
-        usernameField: 'username',
-        passwordField: 'password',
-        passReqToCallback: true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
-    }, function (req, username, password, done) {
-        // if (username) {
-            // Use lower-case usernames to avoid case-sensitive username matching
+    passport.use('login', new LocalStrategy(
+        function (username, password, done) {
             var alias = username.toLowerCase();
-        // }
 
-        // asynchronous
-        process.nextTick(function () {
-            User.findOne({'alias': alias}, function (err, user) {
-                // if there are any errors, return the error
-                if (err) {
-                    return done(err);
-                }
+            // asynchronous
+            process.nextTick(function () {
+                User.findOne({ 'alias': alias }, function (err, user) {
+                    if (err) {
+                        return done(err);
+                    }
 
-                // if no user is found, return the message
-                if (!user) {
-                    return done(null, {error: 'No user found.'});
-                }
+                    if (!user) {
+                        return done(null, { error: 'No user found.' });
+                    }
 
-                if (!user.password || !user.validPassword(password)) {
-                    return done(null, {error: 'Oops! Wrong password.'});
-                }
+                    if (!user.password || !user.isValidPassword(password)) {
+                        return done(null, { error: 'Oops! Wrong password.' });
+                    }
 
-                // all is well, return user
-                else {
                     return done(null, user);
-                }
+                });
             });
-        });
-    }));
+        }
+    ));
 
     // =========================================================================
     // LOCAL SIGNUP =============================================================
     // =========================================================================
-    passport.use('local-signup', new LocalStrategy({
-        // by default, local strategy uses username and password
-        usernameField: 'username',
-        passwordField: 'password',
-        // allows us to pass in the req from our route (lets us check if a user is logged in or not)
-        passReqToCallback: true
-    }, function (req, username, password, done) {
-        // use lower-case usernames to avoid case-sensitive username matching
-        var alias = username.toLowerCase();
+    passport.use('signup', new LocalStrategy(
+        function (username, password, done) {
+            // use lower-case usernames to avoid case-sensitive username matching
+            var alias = username.toLowerCase();
 
-        // asynchronous
-        process.nextTick(function () {
-            // if the user is not already logged in:
-            if (!req.user) {
-                User.findOne({'alias': alias}, function (err, user) {
+            // asynchronous
+            process.nextTick(function () {
+                User.findOne({ 'alias': alias }, function (err, user) {
                     if (err) {
                         return done(err);
                     }
-                    
-                    // check to see if theres already a user with that username
+
                     if (user) {
-                        return done(null, {error: 'That username is already taken.'});
-                    } 
-                    
-                    // create the user
-                    else {
-                        var newUser = new User();
-                        newUser.auth.local.alias = req.body.username;
-                        newUser.auth.local.username = req.body.username.toLowerCase();
-                        newUser.auth.local.password = newUser.generateHash(password);
-                        newUser.save(function (err) {
-                            if (err)
-                                throw err;
-                            return done(null, newUser);
-                        });
+                        return done(null, { error: 'That username is already taken.' });
                     }
+
+                    // create user
+                    var newUser = new User();
+                    newUser.alias = alias;
+                    newUser.username = username;
+                    newUser.password = newUser.generateHash(password);
+                    newUser.save(function (err) {
+                        if (err)
+                            throw err;
+                        return done(null, newUser);
+                    });
                 });
-            } 
-            
-            // if the user is logged in but has no local account...
-            else {
-                // user is logged in and already has a local account. Ignore signup. (You should log out before trying to create a new account, user!)
-                return done(null, req.user);
-            }
-        });
-    }));
+            });
+        }
+    ));
 };

@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html ng-app="app" ng-strict-di>
+
 <head lang="en">
     <style>
         /* This helps the ng-show/ng-hide animations start at the right place. */
         /* Since Angular has this but needs to load, this gives us the class early. */
-        .ng-hide { display: none!important; }
+        
+        .ng-hide {
+            display: none!important;
+        }
     </style>
     <title>eatmeup</title>
     <meta charset="utf-8" />
@@ -12,8 +16,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
     <!--<base href="/">-->
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
     <!-- build:css styles/lib.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="bower_components/angular-material-icons/angular-material-icons.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -24,25 +31,49 @@
     <!-- endbuild -->
 </head>
 
-    <body layout="row">
+<body layout="row">
+    <md-content class="app-content">
+        <md-toolbar class="md-hue-2">
+            <div class="md-toolbar-tools">
+                <h2>
+                    <span>eatmeup</span>
+                </h2>
+            </div>
+        </md-toolbar>
 
-        <h1>eatmeup</h1>
+        <div ui-view></div>
+    </md-content>
 
-        <!-- build:js js/lib.js -->
-        <!-- bower:js -->
-        <script src="bower_components/angular/angular.js"></script>
-        <script src="bower_components/angular-animate/angular-animate.js"></script>
-        <script src="bower_components/lodash/lodash.js"></script>
-        <script src="bower_components/underscore.string/dist/underscore.string.js"></script>
-        <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-        <!-- endbower -->
-        <!-- endbuild -->
+    <!-- build:js js/lib.js -->
+    <!-- bower:js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/underscore.string/dist/underscore.string.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
 
-        <!-- build:js js/app.js -->
-        <!-- inject:js -->
-        <script src="/client/app/app.module.js"></script>
-        <!-- endinject -->
-        <!-- endbuild -->
+    <!-- build:js js/app.js -->
+    <!-- inject:js -->
+    <script src="/client/app/app.module.js"></script>
+    <script src="/client/app/auth/auth.module.js"></script>
+    <script src="/client/app/app.routes.js"></script>
+    <script src="/client/app/auth/auth.js"></script>
+    <script src="/client/app/auth/login.controller.js"></script>
+    <script src="/client/app/auth/signup.controller.js"></script>
+    <script src="/client/app/auth/user.js"></script>
+    <script src="/client/app/main/main.controller.js"></script>
+    <script src="/.tmp/app.config.js"></script>
+    <script src="/.tmp/templates.js"></script>
+    <!-- endinject -->
+    <!-- endbuild -->
 
-    </body>
+</body>
+
 </html>

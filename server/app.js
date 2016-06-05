@@ -4,6 +4,7 @@ var express = require('express');
 var app = express();
 var session = require('express-session');
 var passport = require('passport');
+var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -15,21 +16,24 @@ var environment = process.env.NODE_ENV || 'dev';
 app.use(favicon(__dirname + '/favicon.ico'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(logger('dev'));
 
- //required for passport
+require('./mongoose')();
+require('./passport')(passport);
+
+//required for passport
 console.log('Setting up express-session');
 app.use(session({
-    secret: 'eatmeup',
+    secret: 'eatmeup', // session secret
     resave: false,
     saveUninitialized: false
-})); // session secret
+}));
 
 console.log('Setting up Passport');
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
-require('./mongoose')();
 app.use('/api', require('./routes'));
 
 switch (environment) {

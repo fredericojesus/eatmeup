@@ -94,7 +94,7 @@ function startBrowserSync(isDev) {
     // If dist: watches the files, builds, and restarts browser-sync.
     // If dev: watches files, browser-sync handles reload
     if (isDev) {
-        gulp.watch([config.watchFiles], ['styles'])
+        gulp.watch([config.watchFiles], ['inject'])
             .on('change', log.fileEvent);
     } else {
         gulp.watch([config.watchFiles], ['browserSyncReload'])
