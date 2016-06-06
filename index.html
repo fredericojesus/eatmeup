@@ -16,7 +16,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
     <!--<base href="/">-->
 
+    <!-- FONTS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico"> 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    
     <!-- build:css styles/lib.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
@@ -32,16 +35,16 @@
 </head>
 
 <body layout="row">
-    <md-content class="app-content">
+    <md-content layout-fill>
         <md-toolbar class="md-hue-2">
             <div class="md-toolbar-tools">
-                <h2>
+                <h2 class="logo">
                     <span>eatmeup</span>
                 </h2>
             </div>
         </md-toolbar>
 
-        <div ui-view></div>
+        <div layout-fill ui-view></div>
     </md-content>
 
     <!-- build:js js/lib.js -->
@@ -63,14 +66,12 @@
     <!-- inject:js -->
     <script src="/client/app/app.module.js"></script>
     <script src="/client/app/auth/auth.module.js"></script>
+    <script src="/client/app/app.config.js"></script>
     <script src="/client/app/app.routes.js"></script>
+    <script src="/client/app/auth/auth.controller.js"></script>
     <script src="/client/app/auth/auth.js"></script>
-    <script src="/client/app/auth/login.controller.js"></script>
-    <script src="/client/app/auth/signup.controller.js"></script>
     <script src="/client/app/auth/user.js"></script>
     <script src="/client/app/main/main.controller.js"></script>
-    <script src="/.tmp/app.config.js"></script>
-    <script src="/.tmp/templates.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
 

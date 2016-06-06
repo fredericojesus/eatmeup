@@ -18,7 +18,7 @@
         $scope.logout = function () {
             authService.logout()
                 .then(function () {
-                    $state.go('signup');
+                    $state.go('auth');
                 });
         };
     }

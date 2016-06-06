@@ -27,7 +27,13 @@ function login(req, res, next) {
         }
 
         console.log('Logging in...');
-        res.send(req.user);
+        return req.logIn(user, function (err) {
+            if (err) {
+                console.log(err);
+                return res.status(500).end();
+            }
+            res.send(req.user);
+        });
     })(req, res, next);
 }
 

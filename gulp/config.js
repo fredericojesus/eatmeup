@@ -24,21 +24,20 @@ module.exports = function () {
         js: [
             clientApp + '**/*.module.js',
             clientApp + '**/*.js',
-            temp + '*.js',
-            '!' + clientApp + 'app.config.js', //we are injecting this file from the temp folder
+            // temp + '*.js',
+            // '!' + clientApp + 'app.config.js', //we are injecting this file from the temp folder
             '!' + clientApp + '**/*.spec.js'
         ],
         root: './',
         server: server,
-        stylus: client + '**/*.styl',
+        stylus: client + 'styles/*.styl',
         temp: temp,
 
         //files to watch
         watchFiles: [
             clientApp + '**/*.js',
             clientApp + '**/*.html',
-            client + '**/*.styl',
-            clientApp + '**/*.styl'
+            client + 'styles/*.styl',
         ],
 
         //optimized files
@@ -68,7 +67,7 @@ module.exports = function () {
         },
         
         //browser sync
-        browserReloadDelay: 1000,
+        browserReloadDelay: 1500,
 
         //Node settings
         nodeServer: server + 'app.js',

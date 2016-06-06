@@ -6,8 +6,6 @@ var config = require('../config')();
 var log = require('../util/log');
 var port = process.env.PORT || config.defaultPort;
 var browserSync = require('browser-sync');
-var runSequence = require('run-sequence');
-var modRewrite = require('connect-modrewrite');
 
 var $ = require('gulp-load-plugins')({lazy: true});
 
@@ -15,7 +13,7 @@ var $ = require('gulp-load-plugins')({lazy: true});
  * serve the dev environment
  * --nosync
  */
-gulp.task('serve-dev', ['inject'], function () {
+gulp.task('serve-dev', ['inject', 'lint'], function () {
     serve(true /*isDev*/);
 });
 
@@ -94,7 +92,7 @@ function startBrowserSync(isDev) {
     // If dist: watches the files, builds, and restarts browser-sync.
     // If dev: watches files, browser-sync handles reload
     if (isDev) {
-        gulp.watch([config.watchFiles], ['inject'])
+        gulp.watch([config.watchFiles], ['styles'])
             .on('change', log.fileEvent);
     } else {
         gulp.watch([config.watchFiles], ['browserSyncReload'])
@@ -106,6 +104,7 @@ function startBrowserSync(isDev) {
         port: 3000,
         files: isDev ? [
             config.client + '**/*.*',
+            '!' + config.stylus,
             config.temp + '**/*.*'
         ] : [],
         watchOptions: {
@@ -122,40 +121,8 @@ function startBrowserSync(isDev) {
         logLevel: 'info',
         logPrefix: 'eatmeup',
         notify: true,
-        reloadDelay: 0 //1000
+        reloadDelay: 1000
     };
 
     browserSync(options);
 }
-
-/**
- * serve the code
- * @param  {Boolean} isDev - dev or build mode
- */
-// module.exports = function (isDev) {
-//     var logText = '';
-//     var baseDir = '';
-
-//     if (isDev) {
-//         logText = 'serving the dev environment';
-//         baseDir = './';
-//     } else {
-//         logText = 'serving the dist environment';
-//         baseDir = './dist';
-//     }
-
-//     log.message('Starting BrowserSync on port 3000 ' + logText);
-
-//     browserSync({
-//         port: '3000',
-//         server: {
-//             baseDir: baseDir,
-//             middleware: [
-//                 modRewrite([
-//                     '!\\.\\w+$ /index.html [L]'
-//                 ])
-//             ]
-//         }
-//     });
-
-// };

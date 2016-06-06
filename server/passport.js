@@ -38,7 +38,7 @@ module.exports = function (passport) {
                     }
 
                     if (!user) {
-                        return done(null, { error: 'No user found.' });
+                        return done(null, { error: 'User not found.' });
                     }
 
                     if (!user.password || !user.isValidPassword(password)) {

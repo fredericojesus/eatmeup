@@ -27,15 +27,10 @@
                 templateUrl: contentPath + 'main/main.html',
                 controller: 'MainController'
             })
-            .state('signup', {
-                url: '/signup',
-                templateUrl: contentPath + 'auth/signup.html',
-                controller: 'SignUpController'
-            })
-            .state('login', {
-                url: '/login',
-                templateUrl: contentPath + 'auth/login.html',
-                controller: 'LoginController'
+            .state('auth', {
+                url: '/auth',
+                templateUrl: contentPath + 'auth/auth.html',
+                controller: 'AuthController'
             });
     }
 
@@ -46,13 +41,13 @@
 
         function stateChangeStartCallback(event, toState, toParams, fromState, fromParams, options) {
             //redirects the user to signup screen if not logged in
-            if (toState.name !== 'signup') {
+            if (toState.name !== 'auth') {
                 authService.isAuthenticated()
                     .then(function () {
-                        
+                        //user is logged in, do nothing
                     }).catch(function () {
                         event.preventDefault();
-                        $state.go('signup');
+                        $state.go('auth');
                     });
             }
         }

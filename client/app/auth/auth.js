@@ -8,7 +8,7 @@
     authService.$inject = ['$http', '$q', 'User'];
     /*@ngInject*/
     function authService($http, $q, User) {
-        var _currentUser = undefined;
+        var _currentUser;
 
         var service = {
             getCurrentUser: getCurrentUser,
