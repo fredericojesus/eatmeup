@@ -67,7 +67,7 @@ module.exports = function () {
         },
         
         //browser sync
-        browserReloadDelay: 1500,
+        browserReloadDelay: 0, //1500
 
         //Node settings
         nodeServer: server + 'app.js',

@@ -3,6 +3,8 @@
 
     angular.module('app', [
         'app.auth',
+        'app.header',
+        'app.main',
         'ngMaterial',
         'ngMdIcons',
         'ui.router'

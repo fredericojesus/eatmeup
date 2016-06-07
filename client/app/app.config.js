@@ -15,7 +15,7 @@
             
         $mdThemingProvider.theme('default')
             .primaryPalette('orange')
-            .accentPalette('green');
+            .accentPalette('light-green');
     }
 
 })();
