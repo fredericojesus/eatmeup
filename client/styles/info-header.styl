@@ -18,42 +18,67 @@
 .ih-info-container
     position relative
     display flex
+    flex-direction column
     flex-wrap wrap
     justify-content center
     align-items center
     color #fff
 
+@media (min-width: 960px)
+    .ih-info-container
+        flex-direction row
+
 .ih-consumed
     font-family Montserrat
-    font-size 45px
-    margin-right 10px
+    font-size 2em
     text-shadow 0 0 5px #000
     text-align center
 
+@media (min-width: 960px)
+    .ih-consumed
+        font-size 2.5em
+        margin-right 10px
+
 .ih-calories-wrapper
-    margin -90px 0 0 10px
+    text-align center
 
-@media (min-width: 590px)
+@media (min-width: 960px)
     .ih-calories-wrapper
-        margin -140px 0 0 10px
-
-@media (min-width: 980px)
-    .ih-calories-wrapper
-        margin 10px 0 0 10px
+        margin-left 10px
 
 .ih-calories
+    display flex
+    flex-direction column
     font-family Montserrat
     color accent-hue-2
     span:first-child
-        font-size 90px
+        font-size 4em
         text-shadow 0 0 2px #000
+
+@media (min-width: 960px)
+    .ih-calories
+        flex-direction row
+        span:first-child
+            font-size 6em
 
 .ih-calories
     span:last-child
-        font-size 35px
+        position relative
+        bottom 10px
+        font-size 1.6em
         text-shadow 0 0 2px #000
+
+@media (min-width: 960px)
+    .ih-calories
+        span:last-child
+            top 60px
+            font-size 2em
 
 .ih-calories-message
     position relative
-    bottom 10px
     text-shadow 0 0 2px #000
+
+@media (min-width: 960px)
+    .ih-calories-message
+        bottom 10px
+        text-align left
