@@ -9,7 +9,6 @@
         return {
             restrict: 'E',
             templateUrl: 'app/main/content/meals/meal.html',
-            controller: 'MealController'
         };
     }
 
