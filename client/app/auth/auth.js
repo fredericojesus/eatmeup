@@ -41,20 +41,7 @@
         }
 
         function isAuthenticated() {
-            var dfd = $q.defer();
-            
-            if (!!_currentUser) {
-                dfd.resolve();
-            } else {
-                $http.get('/api/user/status')
-                    .then(function (response) {
-                        dfd.resolve();
-                    }).catch(function (response) {
-                        dfd.reject(response.data);
-                    });
-            }
-            
-            return dfd.promise;
+            return !!_currentUser;
         }
 
         function isAuthorized(role) {

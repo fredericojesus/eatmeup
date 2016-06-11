@@ -7,19 +7,8 @@
     MainController.$inject = ['$scope', '$state', 'authService'];
     /*@ngInject*/
     function MainController($scope, $state, authService) {
+        $scope.delayTooltip = 500;
         
-        authService.getCurrentUser()
-            .then(function (user) {
-                $scope.currentUser = user;
-            }).catch(function (error) {
-                console.log(error);
-            });
-            
-        $scope.logout = function () {
-            authService.logout()
-                .then(function () {
-                    $state.go('auth');
-                });
-        };
     }
+    
 })();

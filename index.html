@@ -37,9 +37,9 @@
 
 <body layout="column">
 
-    <div layout="column">
+    <div layout-fill layout="column">
         <app-header></app-header>
-        <md-content ui-view layout="column" class="app-content"></md-content>
+        <md-content ui-view flex="1" layout="column" class="app-content"></md-content>
     </div>
 
     <!-- build:js js/lib.js -->
@@ -60,26 +60,25 @@
     <!-- build:js js/app.js -->
     <!-- inject:js -->
     <script src="/client/app/app.module.js"></script>
-    <script src="/client/app/header/header.module.js"></script>
     <script src="/client/app/auth/auth.module.js"></script>
+    <script src="/client/app/header/header.module.js"></script>
     <script src="/client/app/main/main.module.js"></script>
-    <script src="/client/app/main/content/content.module.js"></script>
     <script src="/client/app/main/info-header/info-header.module.js"></script>
-    <script src="/client/app/main/content/meals/meals.module.js"></script>
+    <script src="/client/app/main/meals/meals.module.js"></script>
     <script src="/client/app/app.config.js"></script>
     <script src="/client/app/app.routes.js"></script>
-    <script src="/client/app/header/header.controller.js"></script>
-    <script src="/client/app/header/header.directive.js"></script>
     <script src="/client/app/auth/auth.controller.js"></script>
     <script src="/client/app/auth/auth.js"></script>
     <script src="/client/app/auth/user.js"></script>
+    <script src="/client/app/header/header.controller.js"></script>
+    <script src="/client/app/header/header.directive.js"></script>
     <script src="/client/app/main/main.controller.js"></script>
-    <script src="/client/app/main/content/content.controller.js"></script>
-    <script src="/client/app/main/content/content.directive.js"></script>
+    <script src="/client/app/main/add-meal/add-meal.controllers.js"></script>
+    <script src="/client/app/main/filter/filter.controller.js"></script>
     <script src="/client/app/main/info-header/info-header.controller.js"></script>
     <script src="/client/app/main/info-header/info-header.directive.js"></script>
-    <script src="/client/app/main/content/meals/meal.directive.js"></script>
-    <script src="/client/app/main/content/meals/meals.js"></script>
+    <script src="/client/app/main/meals/meal.directive.js"></script>
+    <script src="/client/app/main/meals/meals.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
 

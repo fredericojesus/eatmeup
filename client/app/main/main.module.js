@@ -3,7 +3,7 @@
 
     angular.module('app.main', [
         'app.info-header',
-        'app.content'
+        'app.meals'
     ]);
 
 })();

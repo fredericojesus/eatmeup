@@ -42,9 +42,9 @@
         function stateChangeStartCallback(event, toState, toParams, fromState, fromParams, options) {
             //redirects the user to signup screen if not logged in
             if (toState.name !== 'auth') {
-                authService.isAuthenticated()
+                authService.getCurrentUser()
                     .then(function () {
-                        //user is logged in, do nothing
+                        //user exists, thus is logged in, do nothing
                     }).catch(function () {
                         event.preventDefault();
                         $state.go('auth');
