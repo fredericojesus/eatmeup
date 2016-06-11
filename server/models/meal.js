@@ -7,9 +7,8 @@ var mealSchema = Schema({
     creator: { type: Schema.Types.ObjectId, ref: 'User' },
     description: String,
     calories: Number,
-    date: String,
-    time: String,
-    createdOn: { type: Date, default: Date.now }
+    date: Date
+    // createdOn: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('Meal', mealSchema);

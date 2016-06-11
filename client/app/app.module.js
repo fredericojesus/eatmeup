@@ -7,7 +7,8 @@
         'app.main',
         'ngMaterial',
         'ngMdIcons',
-        'ui.router'
+        'ui.router',
+        'ngAnimate'
     ]);
 
     _.mixin(s.exports());

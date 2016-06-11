@@ -1,0 +1,61 @@
+<md-dialog class="add-meal-dialog" aria-label="Add Meal" ng-cloak>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools color-white">
+                <h2>Add Meal</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon class="color-white" md-svg-src="navigation:close" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <!-- USERNAME -->
+                <md-input-container class="md-block">
+                    <label>meal</label>
+                    <input name="meal" ng-model="meal" minlength="4" maxlength="40">
+                </md-input-container>
+
+                <!-- DESCRIPTION -->
+                <md-input-container class="md-block">
+                    <label>description</label>
+                    <textarea name="description" ng-model="description" minlength="4" maxlength="90"></textarea>
+                </md-input-container>
+
+                <!-- CALORIES -->
+                <md-input-container class="md-block">
+                    <label>calories</label>
+                    <input type="number" name="calories" ng-model="calories" min="0" max="5000" />
+                </md-input-container>
+
+                <!-- DATE -->
+                <md-datepicker class="add-meal-date" ng-model="date" md-placeholder="Enter date"></md-datepicker>
+
+                <!-- TIME -->
+                <div layout="row">
+                    <!-- time -->
+                    <md-input-container>
+                        <label>Time</label>
+                        <md-icon md-svg-icon="device:access_time"></md-icon>
+                        <input type="number" ng-model="time" md-placeholder="Enter Time" min="0" max="12">
+                    </md-input-container>
+                    <!-- am/pm -->
+                    <md-input-container style="margin-right: 10px;">
+                        <md-select ng-model="amPm" aria-label="AmPm">
+                            <md-option value="am">am</md-option>
+                            <md-option value="pm">pm</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button type="submit" ng-click="cancel()" aria-label="Cancel">Cancel</md-button>
+            <md-button type="submit" ng-click="addMeal()" aria-label="Add">Add</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

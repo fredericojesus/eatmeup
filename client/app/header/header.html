@@ -1,14 +1,15 @@
-<md-toolbar class="md-hue-2">
-    <div class="md-toolbar-tools header">
+<md-toolbar class="md-hue-2" ng-cloak>
+    <div class="md-toolbar-tools">
         <h2 class="logo">
             <span>eatmeup</span>
         </h2>
 
+        <span flex></span>
+
         <!-- OPTIONS MENU -->
         <md-menu md-position-mode="target-right target" ng-if="authService.isAuthenticated()">
             <md-button class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)" aria-label="More">
-                <md-icon md-svg-icon="navigation:more_vert"></md-icon>
-                <!--md-menu-origin-->
+                <md-icon md-menu-origin md-svg-icon="navigation:more_vert"></md-icon>
             </md-button>
     
             <md-menu-content md-position-mode="target-right target" width="4">

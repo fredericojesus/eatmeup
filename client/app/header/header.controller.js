@@ -26,6 +26,7 @@
                 .textContent('Are you sure you want to logout?')
                 .ariaLabel('Logout')
                 .targetEvent(originatorEv)
+                .clickOutsideToClose(true)
                 .ok('OK')
                 .cancel('CANCEL');
 

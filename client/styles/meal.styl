@@ -5,3 +5,29 @@
 .meal-description
     flex 2
     word-wrap break-word
+
+.meal.ng-enter
+    transition 1s linear all
+    opacity 0
+    left -50%
+
+.meal.ng-enter.ng-enter-active
+    opacity 1
+    left 0
+
+.meal.ng-leave
+    animation 4s list_animation
+
+list_animation_from()
+    opacity 1
+    right 0
+
+list_animation_to()
+    opacity 0
+    right -50%
+
+@keyframes list_animation
+    from
+        list_animation_from()
+    to
+        list_animation_to()

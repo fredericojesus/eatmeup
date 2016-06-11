@@ -12,8 +12,10 @@ module.exports = {
 };
 
 function getMeals(req, res, next) {
+    console.log('Retrieving meals...');
+
     Meal.find()
-        .sort({ date: 1, time: 1 })
+        .sort({ date: 1 })
         .exec(
             function (err, meals) {
                 res.status(200).send(meals);
@@ -22,13 +24,14 @@ function getMeals(req, res, next) {
 }
 
 function createMeal(req, res, next) {
+    console.log('Creating meal...');
+
     var meal = new Meal({
-        meal: req.body.meal,
+        name: req.body.name,
         creator: req.user._id,
         description: req.body.description,
         calories: req.body.calories,
         date: req.body.date,
-        time: req.body.time
     });
 
     meal.save(req, function (err, meal) {
@@ -41,6 +44,8 @@ function createMeal(req, res, next) {
 }
 
 function updateMeal(req, res, next) {
+    console.log('Updating meal...');
+
     Meal.findById(req.body._id, function (err, meal) {
         if (err) {
             console.log(err);

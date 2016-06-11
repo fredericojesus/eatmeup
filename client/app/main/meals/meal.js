@@ -2,16 +2,16 @@
     'use strict';
     
     angular.module('app.meals')
-        .factory('meals', meals);
+        .factory('Meal', meal);
         
-    meals.$inject = ['$resource'];
+    meal.$inject = ['$resource'];
     /*@ngInject*/
-    function meals($resource) {
+    function meal($resource) {
         var baseUrl = '/api/meals';
-        var postResource = $resource(baseUrl + '/:_id', {_id: '@_id'}, {
+        var mealResource = $resource(baseUrl + '/:_id', {_id: '@_id'}, {
             update: {method: 'PUT', isArray: false},
         });
 
-
+        return mealResource;
     }
 })();
