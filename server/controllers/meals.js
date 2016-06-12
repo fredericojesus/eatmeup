@@ -14,7 +14,7 @@ module.exports = {
 function getMeals(req, res, next) {
     console.log('Retrieving meals...');
 
-    Meal.find()
+    Meal.find({creator: req.user._id})
         .sort({ date: 1 })
         .exec(
             function (err, meals) {

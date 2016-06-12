@@ -25,12 +25,33 @@
             .state('main', {
                 url: '/',
                 templateUrl: contentPath + 'main/main.html',
-                controller: 'MainController'
+                controller: 'MainController',
+                resolve: {
+                    isAuthorized: function () {
+                        return true;
+                    }
+                }
             })
             .state('auth', {
                 url: '/auth',
                 templateUrl: contentPath + 'auth/auth.html',
                 controller: 'AuthController'
+            })
+            .state('user', {
+                url: '/:username',
+                templateUrl: contentPath + 'main/main.html',
+                controller: 'MainController',
+                resolve: {
+                    isAuthorized: ['$stateParams', 'authService', function ($stateParams, authService) {
+                        authService.getCurrentUser()
+                            .then(function () {
+                                return authService.isAuthorized('admin');
+                            }).catch(function () {
+                                return false;
+                            });
+                        
+                    }]
+                }
             });
     }
 
@@ -40,17 +61,24 @@
         $rootScope.$on('$stateChangeStart', stateChangeStartCallback);
 
         function stateChangeStartCallback(event, toState, toParams, fromState, fromParams, options) {
-            //redirects the user to signup screen if not logged in
-            if (toState.name !== 'auth') {
-                authService.getCurrentUser()
-                    .then(function () {
-                        //user exists, thus is logged in, do nothing
-                    }).catch(function () {
+            authService.getCurrentUser()
+                //user is logged in
+                .then(function () {
+                    //redirects to / if user trying to access auth
+                    if (toState.name === 'auth') {
+                        event.preventDefault();
+                        $state.go('main');
+                    }
+                    
+                })
+                //user is not logged in
+                .catch(function () {
+                    //redirects the user to signup screen if trying to access another page
+                    if (toState.name !== 'auth') {
                         event.preventDefault();
                         $state.go('auth');
-                    });
-            }
+                    }
+                });
         }
     }
-
 })();

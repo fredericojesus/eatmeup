@@ -4,9 +4,13 @@
     angular.module('app')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['$scope', '$state', '$mdDialog', '$mdMedia', 'authService', 'Meal'];
+    MainController.$inject = ['$scope', '$state', '$mdDialog', '$mdMedia', 'authService', 'Meal', 'isAuthorized'];
     /*@ngInject*/
-    function MainController($scope, $state, $mdDialog, $mdMedia, authService, Meal) {
+    function MainController($scope, $state, $mdDialog, $mdMedia, authService, Meal, isAuthorized) {
+        if (!isAuthorized) {
+            return $state.go('main');
+        }
+        
         $scope.delayTooltip = 500;
         $scope.mealsList = [];
 
