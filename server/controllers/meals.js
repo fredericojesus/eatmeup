@@ -52,11 +52,10 @@ function updateMeal(req, res, next) {
             return res.status(500).end();
         }
 
-        meal.meal = req.body.meal;
+        meal.name = req.body.name;
         meal.description = req.body.description;
         meal.calories = req.body.calories;
         meal.date = req.body.date;
-        meal.time = req.body.time;
 
         meal.save(function (err, meal) {
             if (err) {
@@ -69,7 +68,9 @@ function updateMeal(req, res, next) {
 }
 
 function deleteMeal(req, res, next) {
-    Meal.findByIdAndRemove(req.body._id, function (err, meal) {
+    console.log('Deleting meal...');
+
+    Meal.findByIdAndRemove(req.params._id, function (err, meal) {
         if (err) {
             console.log(err);
             return res.status(500).end();

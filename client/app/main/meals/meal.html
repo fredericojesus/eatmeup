@@ -1,17 +1,50 @@
 <md-card class="meal-card ng-cloak">
     <md-card-title>
-        <md-card-title-text>
-            <span class="md-headline">{{::meal.name}}</span>
-            <span>Large</span>
-        </md-card-title-text>
+        <div class="meal-headline">
+            <!-- MEAL NAME -->
+            <div class="meal-name">
+                <span>{{::meal.name}}</span>
+            </div>
+
+            <!-- DATE -->
+            <div>
+                <span>{{::meal.getDate()}}</span>
+            </div>
+        </div>
     </md-card-title>
 
-    <md-card-content class="meal-description">
+    <md-card-content class="meal-description-calories">
+        <!-- DESCRIPTION -->
         <p>{{::meal.description}}</p>
+        <span flex></span>
+        <!-- CALORIES -->
+        <div class="meal-calories">
+            <span>{{::meal.calories}} calories</span>
+        </div>
     </md-card-content>
 
-    <md-card-actions layout="row" layout-align="center center">
+    <div class="meal-buttons-wrapper">
+        <!-- EDIT BUTTON -->
+        <div>
+            <md-button ng-click="addEditMeal($event, $index, meal)" md-ink-ripple="false" aria-label="Edit Meal">
+                <md-icon class="color-white s36" md-svg-icon="editor:mode_edit"></md-icon>
+                <md-tooltip md-direction="bottom" md-delay="delayTooltip">Edit Meal</md-tooltip>
+            </md-button>
+        </div>
+
+        <div class="meal-vertical-divider"></div>
+
+        <!-- DELETE BUTTON -->
+        <div>
+            <md-button ng-click="deleteMeal($event, $index, meal)" md-ink-ripple="false" aria-label="Delete Meal">
+                <md-icon class="color-white s36" md-svg-icon="action:delete"></md-icon>
+                <md-tooltip md-direction="bottom" md-delay="delayTooltip">Delete Meal</md-tooltip>
+            </md-button>
+        </div>
+    </div>
+
+    <!--<md-card-actions layout="row" layout-align="center center">
         <md-button class="md-raised md-primary">Edit</md-button>
         <md-button class="md-raised md-primary">Delete</md-button>
-    </md-card-actions>
+    </md-card-actions>-->
 </md-card>

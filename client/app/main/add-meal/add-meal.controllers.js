@@ -4,20 +4,27 @@
     angular.module('app.main')
         .controller('AddMealController', AddMealController);
 
-    AddMealController.$inject = ['$rootScope', '$scope', '$mdDialog', '$mdToast', 'Meal'];
+    AddMealController.$inject = ['$rootScope', '$scope', '$mdDialog', '$mdToast', 'Meal', 'meal'];
     /*@ngInject*/
-    function AddMealController($rootScope, $scope, $mdDialog, $mdToast, Meal) {
-        $scope.meal;
-        $scope.description;
-        $scope.calories;
-        $scope.date = new Date();
+    function AddMealController($rootScope, $scope, $mdDialog, $mdToast, Meal, meal) {
+        //if meal exists, we will edit that meal
+        $scope.title = meal ? 'Edit Meal' : 'Add Meal';
+        $scope.addEditText = meal ? 'Save' : 'Add';
+        $scope.meal = meal ? meal.name : '';
+        $scope.description = meal ? meal.description : '';
+        $scope.calories = meal ? meal.calories : '';
+        $scope.date = meal ? new Date(meal.date) : new Date();
         var hours = $scope.date.getHours();
         $scope.time = hours > 12 ? hours - 12 : hours;
         $scope.amPm = hours > 12 ? 'pm' : 'am';
         //prevent creating duplicate meals
         var isSavingMeal = false;
 
-        $scope.addMeal = function () {
+        //functions
+        $scope.addEditMeal = addEditMeal;
+        $scope.cancel = cancel;
+
+        function addEditMeal() {
             if (isFormValidated() && !isSavingMeal) {
                 isSavingMeal = true;
 
@@ -32,24 +39,34 @@
                     $scope.time, 0, 0
                 );
 
-                Meal.save(newMeal).$promise.then(processNewMeal, handleErrorCreatingMeal);
+                //edit
+                if (meal) {
+                    var editedMeal = new Meal();
+                    newMeal._id = meal._id;
+                    angular.extend(editedMeal, newMeal);
+                    editedMeal.$update(newMeal).then(processNewEditedMeal, handleErrorSavingMeal);
+                } 
+                
+                //create
+                else {
+                    Meal.save(newMeal).$promise.then(processNewEditedMeal, handleErrorSavingMeal);
+                }
             }
-        };
-
-        $scope.cancel = function () {
-            $mdDialog.cancel();
-        };
-
-        function processNewMeal(newMeal) {
-            $mdDialog.hide();
-            isSavingMeal = false;
-
-            $rootScope.$broadcast('newMeal', newMeal);
         }
 
-        function handleErrorCreatingMeal(err) {
-            var message = 'Something went wrong saving your meal. Please try again.';
+        function cancel() {
+            $mdDialog.cancel();
+        }
+
+        function processNewEditedMeal(meal) {
+            $mdDialog.hide(meal);
+            isSavingMeal = false;
+        }
+
+        function handleErrorSavingMeal(err) {
+            var message = 'Something went wrong when saving your meal. Please try again.';
             showToast(message);
+            $mdDialog.cancel();
         }
 
         function isFormValidated() {
@@ -77,12 +94,12 @@
 
         function showToast(message) {
             var toast = $mdToast.simple()
-                    .textContent(message)
-                    .action('CLOSE')
-                    .highlightAction(true)
-                    .position('bottom')
-                    .hideDelay(3000);
-                $mdToast.show(toast);
+                .textContent(message)
+                .action('CLOSE')
+                .highlightAction(true)
+                .position('bottom')
+                .hideDelay(3000);
+            $mdToast.show(toast);
         }
     }
 })();

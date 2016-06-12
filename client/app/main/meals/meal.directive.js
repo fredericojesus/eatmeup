@@ -8,7 +8,7 @@
     function meal() {
         return {
             restrict: 'E',
-            templateUrl: 'app/main/meals/meal.html',
+            templateUrl: 'app/main/meals/meal.html'
         };
     }
 

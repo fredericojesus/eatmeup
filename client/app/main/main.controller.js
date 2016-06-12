@@ -11,10 +11,8 @@
         $scope.mealsList = [];
 
         //functions
-        $scope.addMeal = addMeal;
-        
-        //listeners
-        $scope.$on('newMeal', newMealHandler);
+        $scope.addEditMeal = addEditMeal;
+        $scope.deleteMeal = deleteMeal;
 
         getMeals();
 
@@ -26,20 +24,50 @@
             });
         }
 
-        function addMeal(ev) {
+        function addEditMeal(ev, index, meal) {
             var dialogOptions = {
                 controller: 'AddMealController',
                 templateUrl: 'app/main/add-meal/add-meal.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true,
-                fullscreen: $mdMedia('xs')
+                locals: {
+                    meal: meal
+                }
             };
 
-            $mdDialog.show(dialogOptions).then(function (meal) {
-                console.log('Meal: ' + meal);
+            $mdDialog.show(dialogOptions).then(function (newEditedMeal) {
+                console.log('Meal: ' + newEditedMeal);
+                //edited
+                if (meal) {
+                    $scope.mealsList[index] = newEditedMeal;
+                } 
+                
+                //created
+                else {
+                    newMealHandler(ev, newEditedMeal);
+                }
             });
-        };
+        }
+
+        function deleteMeal(ev, index, meal) {
+            var confirm = $mdDialog.confirm()
+                .title('Delete Meal')
+                .textContent('Are you sure you want to delete this meal?')
+                .ariaLabel('Delete Meal')
+                .targetEvent(ev)
+                .clickOutsideToClose(true)
+                .ok('OK')
+                .cancel('CANCEL');
+
+            $mdDialog.show(confirm)
+                .then(function () {
+                    meal.$delete();
+                })
+                .then(function () {
+                    $scope.mealsList.splice(index, 1);
+                });
+        }
 
         function newMealHandler(ev, newMeal) {
             var meal = new Meal();
