@@ -32,7 +32,7 @@
 
             $mdDialog.show(confirm)
                 .then(function () {
-                    authService.logout();
+                    return authService.logout();
                 })
                 .then(function () {
                     $state.go('auth');

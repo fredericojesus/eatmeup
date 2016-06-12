@@ -90,6 +90,7 @@
                     _currentUser = undefined;
                     dfd.resolve();
                 }).catch(function (response) {
+                    console.log(response.data);
                     dfd.reject(response.data);
                 });
             
