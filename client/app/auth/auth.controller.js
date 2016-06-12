@@ -19,13 +19,7 @@
                             $state.go('main');
                         }).catch(function (err) {
                             if (err) {
-                                var toast = $mdToast.simple()
-                                    .textContent(err)
-                                    .action('CLOSE')
-                                    .highlightAction(true)
-                                    .position('bottom')
-                                    .hideDelay(3000);
-                                $mdToast.show(toast);
+                                showToast(err);
                             }
                         });
                     break;
@@ -34,11 +28,23 @@
                         .then(function () {
                             $state.go('main');
                         }).catch(function (err) {
-                            console.log(err);
+                            if (err) {
+                                showToast(err); 
+                            }
                         });
                     break;
             }
         };
+
+        function showToast(errorMessage) {
+            var toast = $mdToast.simple()
+                .textContent(errorMessage)
+                .action('CLOSE')
+                .highlightAction(true)
+                .position('bottom')
+                .hideDelay(3000);
+            $mdToast.show(toast);
+        }
     }
 
 })();

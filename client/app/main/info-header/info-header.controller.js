@@ -4,9 +4,12 @@
     angular.module('app.info-header')
         .controller('InfoHeaderController', InfoHeaderController);
         
-    InfoHeaderController.$inject = [];
+    InfoHeaderController.$inject = ['$scope', 'authService'];
     /*@ngInject*/
-    function InfoHeaderController() {
-        
+    function InfoHeaderController($scope, authService) {
+        authService.getCurrentUser()
+            .then(function (user) {
+                $scope.maximumCaloriesPerDay = user.maximumCaloriesPerDay;
+            });
     }
 })();

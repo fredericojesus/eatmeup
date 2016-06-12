@@ -2,15 +2,45 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt-nodejs');
 
+var mealType = new Schema({
+    type: String,
+    timeFrom: Number,
+    timeTo: Number
+});
+
 //schema for user model
 var userSchema = Schema({
     username: String,
     alias: String,
     password: String,
-    roles: [String],
+    role: [String],
+    maximumCaloriesPerDay: { type: Number, default: 3000 },
+    mealTypes: [mealType],
     createdOn: { type: Date, default: Date.now }
 });
 
+userSchema.pre('save', function (next) {
+    var breakFast = {
+        type: 'Breakfast',
+        timeFrom: 8,
+        timeTo: 11
+    };
+    var lunch = {
+        type: 'Lunch',
+        timeFrom: 12,
+        timeTo: 15
+    };
+    var dinner = {
+        type: 'Dinner',
+        timeFrom: 19,
+        timeTo: 22
+    };
+
+    this.mealTypes = [];
+    this.mealTypes.push(breakFast, lunch, dinner);
+
+    next();
+});
 
 //methods
 //generating a hash

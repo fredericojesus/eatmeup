@@ -16,8 +16,18 @@
             $mdOpenMenu(ev);
         };
 
-        $scope.openSettings = function () {
+        $scope.openSettings = function (ev) {
+            var dialogOptions = {
+                controller: 'SettingsController',
+                templateUrl: 'app/header/settings/settings.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true,
+            };
 
+            $mdDialog.show(dialogOptions).then(function () {
+                
+            });
         };
 
         $scope.logout = function () {

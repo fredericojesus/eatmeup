@@ -49,7 +49,7 @@
                 
                 //created
                 else {
-                    newMealHandler(ev, newEditedMeal);
+                    newMealHandler(newEditedMeal);
                 }
             });
         }
@@ -73,7 +73,7 @@
                 });
         }
 
-        function newMealHandler(ev, newMeal) {
+        function newMealHandler(newMeal) {
             var meal = new Meal();
             angular.extend(meal, newMeal);
             $scope.mealsList.unshift(meal);

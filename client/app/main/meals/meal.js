@@ -18,11 +18,10 @@
 
         function getDate() {
             var date = new Date(this.date);
-            var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+            var hours = date.getHours();
             var minutes = date.getMinutes();
-            var amPm = hours > 12 ? 'pm' : 'am';
 
-            return date.toDateString() + ' at ' + hours + amPm;
+            return date.toDateString() + ' at ' + hours + 'H';
         }
     }
 })();

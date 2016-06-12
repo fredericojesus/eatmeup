@@ -14,9 +14,7 @@
         $scope.description = meal ? meal.description : '';
         $scope.calories = meal ? meal.calories : '';
         $scope.date = meal ? new Date(meal.date) : new Date();
-        var hours = $scope.date.getHours();
-        $scope.time = hours > 12 ? hours - 12 : hours;
-        $scope.amPm = hours > 12 ? 'pm' : 'am';
+        $scope.time = $scope.date.getHours();
         //prevent creating duplicate meals
         var isSavingMeal = false;
 

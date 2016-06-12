@@ -27,28 +27,18 @@
                 <!-- CALORIES -->
                 <md-input-container class="md-block">
                     <label>calories</label>
-                    <input type="number" name="calories" ng-model="calories" min="0" max="5000" />
+                    <input type="number" name="calories" ng-model="calories" min="0" max="3000" />
                 </md-input-container>
 
                 <!-- DATE -->
                 <md-datepicker class="add-meal-date" ng-model="date" md-placeholder="Enter date"></md-datepicker>
 
                 <!-- TIME -->
-                <div layout="row">
-                    <!-- time -->
-                    <md-input-container>
-                        <label>Time</label>
-                        <md-icon class="add-meal-clock" md-svg-icon="device:access_time"></md-icon>
-                        <input type="number" ng-model="time" md-placeholder="Enter Time" min="0" max="12">
-                    </md-input-container>
-                    <!-- am/pm -->
-                    <md-input-container style="margin-right: 10px;">
-                        <md-select ng-model="amPm" aria-label="AmPm">
-                            <md-option value="am">am</md-option>
-                            <md-option value="pm">pm</md-option>
-                        </md-select>
-                    </md-input-container>
-                </div>
+                <md-input-container>
+                    <label>Time</label>
+                    <md-icon class="add-meal-clock" md-svg-icon="device:access_time"></md-icon>
+                    <input type="number" ng-model="time" md-placeholder="Enter Time" min="0" max="23" />
+                </md-input-container>
             </div>
         </md-dialog-content>
 
