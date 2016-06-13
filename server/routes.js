@@ -22,6 +22,7 @@ router.get('/meals', meals.getMeals);
 router.post('/meals', meals.createMeal);
 router.put('/meals/:_id', meals.updateMeal);
 router.delete('/meals/:_id', meals.deleteMeal);
+router.get('/meals/todayCalories', meals.getTodayUserCalories);
 
 //FOUR0FOUR
 router.get('/*', four0four.notFoundMiddleware);

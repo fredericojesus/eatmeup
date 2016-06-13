@@ -7,7 +7,8 @@ module.exports = {
     getMeals: getMeals,
     createMeal: createMeal,
     updateMeal: updateMeal,
-    deleteMeal: deleteMeal
+    deleteMeal: deleteMeal,
+    getTodayUserCalories: getTodayUserCalories
 
 };
 
@@ -78,4 +79,42 @@ function deleteMeal(req, res, next) {
 
         res.status(200).send();
     });
+}
+
+function getTodayUserCalories(req, res, next) {
+    console.log('Retrieving calories consumed today by ' + req.user.username);
+
+    var start = new Date();
+    start.setHours(0,0,0,0);
+    var end = new Date();
+    end.setHours(23,59,59,999);
+
+    Meal.aggregate({
+        $match: {
+            creator: req.user._id,
+            date: { 
+                $gte: start,
+                $lte: end 
+            } 
+        } 
+    }, {
+        $group: {
+            _id: null,
+            totalCalories: { 
+                $sum: "$calories"
+            }
+        }
+    }, function (err, result) {
+        if (err) {
+            console.log(err);
+            return res.status(500).end();
+        }
+
+        if (result.length) {
+            console.log(result[0].totalCalories);
+            return res.status(200).send(result[0]);
+        }
+
+        res.status(200).send();
+    })
 }
