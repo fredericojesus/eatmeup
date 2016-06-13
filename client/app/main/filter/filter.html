@@ -1,0 +1,41 @@
+<md-dialog class="add-meal-dialog" aria-label="Add Meal" ng-cloak>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools color-white">
+                <h2>Filter</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon class="color-white" md-svg-src="navigation:close" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <h4 class="filter-subtitle">How much calories did I consumed</h4>
+
+        <md-dialog-content>
+            <div class="md-dialog-content filter-content">
+                <!-- DATE FROM -->
+                <md-subheader>From</md-subheader>
+                <md-datepicker class="add-meal-date" ng-model="dateFrom" md-placeholder="Enter date"></md-datepicker>
+
+                <!-- DATE TO -->
+                <md-subheader>To</md-subheader>
+                <md-datepicker class="add-meal-date" ng-model="dateTo" md-placeholder="Enter date"></md-datepicker>
+
+                <!-- AT -->
+                <md-subheader>At</md-subheader>
+                <md-input-container class="filter-at">
+                    <md-select ng-model="mealType" aria-label="Meal Type">
+                        <md-option ng-repeat="mealType in mealTypes" value={{::mealType.type}}>{{::mealType.type}}</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button type="submit" ng-click="cancel()" aria-label="Cancel">Cancel</md-button>
+            <md-button type="submit" ng-click="filterMeals()" aria-label="Add">Filter</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

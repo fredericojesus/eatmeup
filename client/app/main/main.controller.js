@@ -10,13 +10,14 @@
         if (!isAuthorized) {
             return $state.go('main');
         }
-        
+
         $scope.delayTooltip = 500;
         $scope.mealsList = [];
 
         //functions
         $scope.addEditMeal = addEditMeal;
         $scope.deleteMeal = deleteMeal;
+        $scope.filterMeals = filterMeals;
 
         getMeals();
 
@@ -28,10 +29,15 @@
             });
         }
 
+        /**
+         * @param {Event} ev
+         * @param {Number} index - when editing index is needed to update meal
+         * @param {Object} meal - when edited the object meal is used to pass to the controller
+         */
         function addEditMeal(ev, index, meal) {
             var dialogOptions = {
-                controller: 'AddMealController',
-                templateUrl: 'app/main/add-meal/add-meal.html',
+                controller: 'AddEditMealController',
+                templateUrl: 'app/main/add-edit-meal/add-edit-meal.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true,
@@ -45,8 +51,8 @@
                 //edited
                 if (meal) {
                     $scope.mealsList[index] = newEditedMeal;
-                } 
-                
+                }
+
                 //created
                 else {
                     newMealHandler(newEditedMeal);
@@ -78,6 +84,19 @@
             angular.extend(meal, newMeal);
             $scope.mealsList.unshift(meal);
         }
-    }
 
+        function filterMeals(ev) {
+            var dialogOptions = {
+                controller: 'FilterController',
+                templateUrl: 'app/main/filter/filter.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true,
+            };
+
+            $mdDialog.show(dialogOptions).then(function () {
+
+            });
+        }
+    }
 })();

@@ -2,11 +2,11 @@
     'use strict';
 
     angular.module('app.main')
-        .controller('AddMealController', AddMealController);
+        .controller('AddEditMealController', AddEditMealController);
 
-    AddMealController.$inject = ['$rootScope', '$scope', '$mdDialog', '$mdToast', 'Meal', 'meal'];
+    AddEditMealController.$inject = ['$rootScope', '$scope', '$mdDialog', '$mdToast', 'Meal', 'meal'];
     /*@ngInject*/
-    function AddMealController($rootScope, $scope, $mdDialog, $mdToast, Meal, meal) {
+    function AddEditMealController($rootScope, $scope, $mdDialog, $mdToast, Meal, meal) {
         //if meal exists, we will edit that meal
         $scope.title = meal ? 'Edit Meal' : 'Add Meal';
         $scope.addEditText = meal ? 'Save' : 'Add';

@@ -4,7 +4,7 @@
     <meal ng-repeat="meal in mealsList" class="meal"></meal>
 </div>
 
-<md-button class="md-fab md-primary main-filter" aria-label="Filter Meals">
+<md-button ng-click="filterMeals($event)" class="md-fab md-primary main-filter" aria-label="Filter Meals">
     <md-icon class="color-white" md-svg-icon="content:filter_list"></md-icon>
     <md-tooltip md-direction="left" md-delay="delayTooltip">Filter Meals</md-tooltip>
 </md-button>
