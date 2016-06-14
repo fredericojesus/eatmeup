@@ -84,17 +84,6 @@
                 });
         }
 
-        function newMealHandler(newMeal) {
-            var meal = new Meal();
-            angular.extend(meal, newMeal);
-            $scope.mealsList.unshift(meal);
-
-            if (isMealEatenToday(meal)) {
-                //warn info-head there's a new meal
-                $rootScope.$broadcast('newMeal', meal.calories);
-            }
-        }
-
         function filterMeals(ev) {
             var dialogOptions = {
                 controller: 'FilterController',
@@ -108,6 +97,18 @@
 
             });
         }
+        
+        function newMealHandler(newMeal) {
+            var meal = new Meal();
+            angular.extend(meal, newMeal);
+            $scope.mealsList.unshift(meal);
+
+            if (isMealEatenToday(meal)) {
+                //warn info-head there's a new meal
+                $rootScope.$broadcast('newMeal', meal.calories);
+            }
+        }
+
 
         function isMealEatenToday(meal) {
             var dateNow = new Date();
