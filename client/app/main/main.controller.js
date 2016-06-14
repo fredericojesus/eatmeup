@@ -4,9 +4,9 @@
     angular.module('app')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['$scope', '$state', '$mdDialog', '$mdMedia', 'authService', 'Meal', 'isAuthorized'];
+    MainController.$inject = ['$rootScope', '$scope', '$state', '$mdDialog', '$mdMedia', 'authService', 'Meal', 'isAuthorized'];
     /*@ngInject*/
-    function MainController($scope, $state, $mdDialog, $mdMedia, authService, Meal, isAuthorized) {
+    function MainController($rootScope, $scope, $state, $mdDialog, $mdMedia, authService, Meal, isAuthorized) {
         if (!isAuthorized) {
             return $state.go('main');
         }
@@ -72,7 +72,12 @@
 
             $mdDialog.show(confirm)
                 .then(function () {
-                    meal.$delete();
+                    meal.$delete().then(function () {
+                        if (isMealEatenToday(meal)) {
+                            //warn info-head that a new meal has been deleted
+                            $rootScope.$broadcast('deletedMeal', meal.calories);
+                        }
+                    });
                 })
                 .then(function () {
                     $scope.mealsList.splice(index, 1);
@@ -83,6 +88,11 @@
             var meal = new Meal();
             angular.extend(meal, newMeal);
             $scope.mealsList.unshift(meal);
+
+            if (isMealEatenToday(meal)) {
+                //warn info-head there's a new meal
+                $rootScope.$broadcast('newMeal', meal.calories);
+            }
         }
 
         function filterMeals(ev) {
@@ -97,6 +107,17 @@
             $mdDialog.show(dialogOptions).then(function () {
 
             });
+        }
+
+        function isMealEatenToday(meal) {
+            var dateNow = new Date();
+            var dateMeal = new Date(meal.date);
+
+            if (dateNow.getDate() === dateMeal.getDate()) {
+                return true;
+            }
+
+            return false;
         }
     }
 })();

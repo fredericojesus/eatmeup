@@ -115,6 +115,7 @@ function getTodayUserCalories(req, res, next) {
             return res.status(200).send(result[0]);
         }
 
+        console.log('No meals found today...')
         res.status(200).send();
     })
 }

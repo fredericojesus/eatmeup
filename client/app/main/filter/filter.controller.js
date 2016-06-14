@@ -7,8 +7,8 @@
     FilterController.$inject = ['$scope', '$mdDialog', 'authService'];
     /*@ngInject*/
     function FilterController($scope, $mdDialog, authService) {
-        $scope.mealType;
-        $scope.mealTypes;
+        $scope.mealType = '';
+        $scope.mealTypes = {};
 
         //functions
         $scope.filterMeals = filterMeals;
@@ -16,8 +16,8 @@
 
         authService.getCurrentUser()
             .then(function (user) {
-                $scope.mealTypes = user.mealTypes;
                 $scope.mealType = user.mealTypes[0].type;
+                $scope.mealTypes = user.mealTypes;
             });
 
         function filterMeals() {
