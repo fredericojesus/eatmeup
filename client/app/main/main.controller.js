@@ -59,7 +59,6 @@
             };
 
             $mdDialog.show(dialogOptions).then(function (newEditedMeal) {
-                console.log('Meal: ' + newEditedMeal);
                 //edited
                 if (meal) {
                     $scope.mealsList[index] = newEditedMeal;

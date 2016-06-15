@@ -42,12 +42,12 @@
                     var editedMeal = new Meal();
                     newMeal._id = meal._id;
                     angular.extend(editedMeal, newMeal);
-                    editedMeal.$update(newMeal).then(processNewEditedMeal, handleErrorSavingMeal);
+                    editedMeal.$update(newMeal).then(processSavedMeal, handleErrorSavingMeal);
                 } 
                 
                 //create
                 else {
-                    Meal.save(newMeal).$promise.then(processNewEditedMeal, handleErrorSavingMeal);
+                    Meal.save(newMeal).$promise.then(processSavedMeal, handleErrorSavingMeal);
                 }
             }
         }
@@ -56,7 +56,7 @@
             $mdDialog.cancel();
         }
 
-        function processNewEditedMeal(meal) {
+        function processSavedMeal(meal) {
             $mdDialog.hide(meal);
             isSavingMeal = false;
         }
@@ -64,7 +64,7 @@
         function handleErrorSavingMeal(err) {
             var message = 'Something went wrong when saving your meal. Please try again.';
             showToast(message);
-            $mdDialog.cancel();
+            isSavingMeal = false;
         }
 
         function isFormValidated() {

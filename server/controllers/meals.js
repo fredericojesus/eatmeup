@@ -25,12 +25,16 @@ function getMeals(req, res, next) {
 
     var dateFrom = new Date(2016, 0, 1);
     var dateTo = new Date();
+    dateTo.setHours(23);
+    dateTo.setMinutes(99);
     var timeFrom = 0;
     var timeTo = 23;
     if (req.query.dateTo && req.query.dateFrom && req.query.timeFrom && req.query.timeTo) {
-        console.log('yooooo');
+        console.log(req.query);
         dateFrom = new Date(req.query.dateFrom);
         dateTo = new Date(req.query.dateTo);
+        dateTo.setHours(23);
+        dateTo.setMinutes(99);
         timeFrom = parseInt(req.query.timeFrom);
         timeTo = parseInt(req.query.timeTo);
     }

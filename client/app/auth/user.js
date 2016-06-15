@@ -8,7 +8,7 @@
     user.$inject = ['$resource'];
     /*@ngInject*/
     function user($resource) {
-        var baseUrl = '/api/users';
+        var baseUrl = '/api/user';
         var userResource = $resource(baseUrl + '/:username', { username: '@username' }, {
             update: { method: 'PUT', isArray: false },
         });

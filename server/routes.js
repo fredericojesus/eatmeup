@@ -16,6 +16,7 @@ router.get('/logout', auth.logout);
 
 //USERS ROUTES
 router.get('/user', users.getCurrentUser);
+router.put('/user', users.updateUser);
 
 //MEALS ROUTES
 router.get('/meals', meals.getMeals);
