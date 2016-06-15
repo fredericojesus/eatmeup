@@ -1,15 +1,32 @@
-<info-header class="ih-container"></info-header>
+<info-header ng-if="!isFilterApplied" class="ih-container"></info-header>
 
-<div class="main-content">
+<!-- FILTER INFO TOOLBAR -->
+<md-toolbar ng-if="isFilterApplied" class="md-accent filter-toolbar">
+    <div class="md-toolbar-tools">
+        <h4>
+            <span>{{::filterTitle}}</span>
+        </h4>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancelFilter()">
+            <md-icon md-svg-src="navigation:close" aria-label="Cancel Filter"></md-icon>
+            <md-tooltip md-direction="bottom" md-delay="delayTooltip">Cancel Filter</md-tooltip>
+        </md-button>
+    </div>
+</md-toolbar>
+
+<!-- MAIN CONTENT (GRID OF MEALS) -->
+<div class="main-content" ng-class="{'filter-applied': isFilterApplied}">
     <meal ng-repeat="meal in mealsList" class="meal"></meal>
 </div>
 
-<md-button ng-click="filterMeals($event)" class="md-fab md-primary main-filter" aria-label="Filter Meals">
+<!-- FILTER MEALS BUTTON -->
+<md-button ng-click="filterMeals($event)" class="md-fab md-accent-500 main-filter" aria-label="Filter Meals">
     <md-icon class="color-white" md-svg-icon="content:filter_list"></md-icon>
     <md-tooltip md-direction="left" md-delay="delayTooltip">Filter Meals</md-tooltip>
 </md-button>
 
-<md-button ng-click="addEditMeal($event)" class="md-fab md-primary main-add-meal" aria-label="Add Meal">
+<!-- ADD MEAL BUTTON -->
+<md-button ng-click="addEditMeal($event)" class="md-fab md-accent-500 main-add-meal" aria-label="Add Meal">
     <md-icon class="color-white" md-svg-icon="content:add"></md-icon>
     <md-tooltip md-direction="left" md-delay="delayTooltip">Add Meal</md-tooltip>
 </md-button>

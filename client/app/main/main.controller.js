@@ -13,17 +13,29 @@
 
         $scope.delayTooltip = 500;
         $scope.mealsList = [];
+        $scope.isFilterApplied = false;
+        $scope.filterTitle = '';
 
         //functions
         $scope.addEditMeal = addEditMeal;
         $scope.deleteMeal = deleteMeal;
         $scope.filterMeals = filterMeals;
+        $scope.cancelFilter = cancelFilter;
 
         getMeals();
 
-        function getMeals() {
+        /**
+         * @param {Date} dateFrom
+         * @param {Date} dateTo
+         * @param {Number} timeFrom
+         * @param {Number} timeTo
+         */
+        function getMeals(dateFrom, dateTo, timeFrom, timeTo) {
             Meal.query({
-
+                dateFrom: dateFrom,
+                dateTo: dateTo,
+                timeFrom: timeFrom,
+                timeTo: timeTo
             }).$promise.then(function (meals) {
                 $scope.mealsList = meals;
             });
@@ -93,9 +105,18 @@
                 clickOutsideToClose: true,
             };
 
-            $mdDialog.show(dialogOptions).then(function () {
-
+            $mdDialog.show(dialogOptions).then(function (filter) {
+                $scope.isFilterApplied = true;
+                $scope.filterTitle = 'Meals from ' + filter.dateFrom.toLocaleDateString() + ' to ' + filter.dateTo.toLocaleDateString() + ' at ' + filter.mealType;
+                $scope.mealsList = [];
+                getMeals(filter.dateFrom, filter.dateTo, filter.timeFrom, filter.timeTo);
             });
+        }
+
+        function cancelFilter() {
+            $scope.isFilterApplied = false;
+            $scope.mealsList = [];
+            getMeals();
         }
         
         function newMealHandler(newMeal) {

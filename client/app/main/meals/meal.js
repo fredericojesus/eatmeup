@@ -21,7 +21,7 @@
             var hours = date.getHours();
             var minutes = date.getMinutes();
 
-            return date.toDateString() + ' at ' + hours + 'H';
+            return date.toLocaleDateString() + ' at ' + hours + 'H';
         }
     }
 })();

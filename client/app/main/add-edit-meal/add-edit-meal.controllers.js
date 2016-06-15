@@ -4,9 +4,9 @@
     angular.module('app.main')
         .controller('AddEditMealController', AddEditMealController);
 
-    AddEditMealController.$inject = ['$rootScope', '$scope', '$mdDialog', '$mdToast', 'Meal', 'meal'];
+    AddEditMealController.$inject = ['$scope', '$mdDialog', '$mdToast', 'Meal', 'meal'];
     /*@ngInject*/
-    function AddEditMealController($rootScope, $scope, $mdDialog, $mdToast, Meal, meal) {
+    function AddEditMealController($scope, $mdDialog, $mdToast, Meal, meal) {
         //if meal exists, we will edit that meal
         $scope.title = meal ? 'Edit Meal' : 'Add Meal';
         $scope.addEditText = meal ? 'Save' : 'Add';
