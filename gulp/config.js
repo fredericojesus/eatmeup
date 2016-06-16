@@ -24,8 +24,7 @@ module.exports = function () {
         js: [
             clientApp + '**/*.module.js',
             clientApp + '**/*.js',
-            // temp + '*.js',
-            // '!' + clientApp + 'app.config.js', //we are injecting this file from the temp folder
+            temp + '*.js',
             '!' + clientApp + '**/*.spec.js'
         ],
         root: './',

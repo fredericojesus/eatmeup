@@ -4,7 +4,7 @@ var notify = require('gulp-notify');
 
 module.exports = function(error) {
 
-    if (!global.isProd) {
+    if (!global.isDist) {
 
         var args = Array.prototype.slice.call(arguments);
 

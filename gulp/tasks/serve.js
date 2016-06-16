@@ -21,8 +21,7 @@ gulp.task('serve-dev', ['inject', 'lint'], function () {
  * serve the dist environment
  * --nosync
  */
-gulp.task('serve-dist', ['optimize'], function () {
-    global.isProd = true;
+gulp.task('serve-dist', ['optimize', 'images'], function () {
     serve(false /*isDev*/);
 });
 

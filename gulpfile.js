@@ -9,6 +9,6 @@
  * To add a new task just add it to gulp/tasks
  */
 
-global.isProd = false;
+global.isDist = false;
 
 require('./gulp');

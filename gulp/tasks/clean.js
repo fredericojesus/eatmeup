@@ -26,8 +26,8 @@ gulp.task('clean', function(done) {
 gulp.task('clean-code', function(done) {
     var files = [].concat(
         config.temp + '**/*.js',
-        config.build + 'js/**/*.js',
-        config.build + '**/*.html'
+        config.dist + 'js/**/*.js',
+        config.dist + '**/*.html'
     );
     clean(files, done);
 });
@@ -39,7 +39,7 @@ gulp.task('clean-code', function(done) {
 gulp.task('clean-styles', function(done) {
     var files = [].concat(
         config.temp + '**/*.css',
-        config.build + 'styles/**/*.css'
+        config.dist + 'styles/**/*.css'
     );
     clean(files, done);
 });

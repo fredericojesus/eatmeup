@@ -4,13 +4,15 @@
     angular.module('app.main')
         .controller('FilterController', FilterController);
 
-    FilterController.$inject = ['$scope', '$mdDialog', 'toast', 'authService'];
+    FilterController.$inject = ['$scope', '$mdDialog', '$stateParams', 'toast', 'authService'];
     /*@ngInject*/
-    function FilterController($scope, $mdDialog, toast, authService) {
+    function FilterController($scope, $mdDialog, $stateParams, toast, authService) {
         $scope.mealType = '';
         $scope.mealTypes = {};
         $scope.dateFrom = undefined;
         $scope.dateTo = new Date();
+        $scope.isManager = $stateParams.username && authService.currentUser().username !== $stateParams.username ? true : false;
+        $scope.subtitle = !$scope.isManager ? 'How much calories did I consume' : 'How much calories did ' + $stateParams.username + ' consume';
 
         //functions
         $scope.filterMeals = filterMeals;

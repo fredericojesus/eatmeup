@@ -8,7 +8,7 @@
     userShown.$inject = [];
     /*@ngInject*/
     function userShown() {
-        var _user;
+        var _user = {};
 
         var service = {
             getUserShown: getUserShown,

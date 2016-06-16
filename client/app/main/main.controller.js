@@ -16,7 +16,7 @@
         $scope.isFilterApplied = false;
         $scope.filterTitle = '';
         $scope.isManager = $stateParams.username && authService.currentUser().username !== $stateParams.username ? true : false;
-        $scope.userNotFound = $scope.isManager && !userShown.getUserShown().username ? true : false; 
+        $scope.userNotFound = $scope.isManager && (!userShown.getUserShown().username) ? true : false; 
 
         //functions
         $scope.addEditMeal = addEditMeal;
