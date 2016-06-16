@@ -1,4 +1,4 @@
-# East Me Up, an App using the MEAN stack + Gulp + Angular Material
+# eatmeup, an App using the MEAN stack + Gulp + Angular Material
 
 ### Getting up and running
 
