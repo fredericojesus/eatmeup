@@ -11,6 +11,7 @@
         var _currentUser;
 
         var service = {
+            currentUser: currentUser,
             getCurrentUser: getCurrentUser,
             isAuthenticated: isAuthenticated,
             isAuthorized: isAuthorized,
@@ -20,6 +21,10 @@
         };
 
         return service;
+
+        function currentUser() {
+            return _currentUser;
+        }
 
         function getCurrentUser() {
             var dfd = $q.defer();

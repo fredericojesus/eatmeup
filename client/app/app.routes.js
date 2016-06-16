@@ -29,6 +29,14 @@
                 resolve: {
                     isAuthorized: function () {
                         return true;
+                    },
+                    setUserShown: function (authService, userShown) {
+                        return authService.getCurrentUser()
+                            .then(function (user) {
+                                return userShown.setUserShown(user);
+                            }).catch(function () {
+                                return false;
+                            });
                     }
                 }
             })
@@ -42,15 +50,22 @@
                 templateUrl: contentPath + 'main/main.html',
                 controller: 'MainController',
                 resolve: {
-                    isAuthorized: ['$stateParams', 'authService', function ($stateParams, authService) {
-                        authService.getCurrentUser()
+                    isAuthorized: function (authService) {
+                        return authService.getCurrentUser()
                             .then(function () {
-                                return authService.isAuthorized('admin');
+                                return authService.isAuthorized('manager');
                             }).catch(function () {
                                 return false;
                             });
-                        
-                    }]
+                    },
+                    setUserShown: function ($stateParams, User, userShown) {
+                        User.get({username: $stateParams.username}).$promise
+                            .then(function (user) {
+                                return userShown.setUserShown(user);
+                            }).catch(function (err) {
+                                return false;
+                            });
+                    }
                 }
             });
     }

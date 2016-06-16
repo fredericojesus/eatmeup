@@ -4,12 +4,10 @@
     angular.module('app.header')
         .controller('SettingsController', SettingsController);
 
-    SettingsController.$inject = ['$scope', '$mdDialog', '$mdToast', 'authService', 'User'];
+    SettingsController.$inject = ['$rootScope', '$scope', '$mdDialog', '$mdToast', 'userShown', 'User'];
     /*@ngInject*/
-    function SettingsController($scope, $mdDialog, $mdToast, authService, User) {
-        $scope.user = {};
-        $scope.maximumCaloriesPerDay = 0;
-        $scope.mealTypes = {};
+    function SettingsController($rootScope, $scope, $mdDialog, $mdToast, userShown, User) {
+        $scope.user = userShown.getUserShown();                
         //prevent making duplicate calls
         var isSavingUser = false;
 
@@ -17,19 +15,12 @@
         $scope.saveSettings = saveSettings;
         $scope.cancel = cancel;
 
-        authService.getCurrentUser()
-            .then(function (user) {
-                $scope.user = user;
-                $scope.maximumCaloriesPerDay = user.maximumCaloriesPerDay;
-                $scope.mealTypes = user.mealTypes;
-            });
-
         function saveSettings() {
             isSavingUser = true;
 
             var user = {};
             user._id = $scope.user._id;
-            user.maximumCaloriesPerDay = $scope.maximumCaloriesPerDay;
+            user.maximumCaloriesPerDay = $scope.user.maximumCaloriesPerDay;
 
             var updatedUser = new User();
             angular.extend(updatedUser, user);
@@ -41,6 +32,7 @@
         }
 
         function processUpdatedUser(user) {
+            $rootScope.$broadcast('userUpdated', user);
             $mdDialog.hide(user);
             isSavingUser = false;
         }

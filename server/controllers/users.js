@@ -5,6 +5,7 @@ var User = require('../models/user.js');
 module.exports = {
     
     getCurrentUser: getCurrentUser,
+    getUserByUsername: getUserByUsername,
     updateUser: updateUser
 
 };
@@ -15,6 +16,24 @@ function getCurrentUser(req, res, next) {
     }
 
     res.status(200).send(req.user);
+}
+
+function getUserByUsername(req, res, next) {
+    console.log('Getting user by username (' + req.params.username + ')...');
+
+    User.find({username: req.params.username}, function (err, user) {
+        if (err) {
+            console.log(err);
+            return res.status(500).end();
+        }
+
+        if (user) {
+            res.status(200).send(user[0]);
+        } else {
+            res.status(403).end();
+        }
+
+    });
 }
 
 function updateUser(req, res, next) {

@@ -26,7 +26,7 @@
 </md-button>
 
 <!-- ADD MEAL BUTTON -->
-<md-button ng-click="addEditMeal($event)" class="md-fab md-accent-500 main-add-meal" aria-label="Add Meal">
+<md-button ng-click="addEditMeal($event)" class="md-fab md-accent-500 main-add-meal" ng-disabled="isManager" aria-label="Add Meal">
     <md-icon class="color-white" md-svg-icon="content:add"></md-icon>
     <md-tooltip md-direction="left" md-delay="delayTooltip">Add Meal</md-tooltip>
 </md-button>

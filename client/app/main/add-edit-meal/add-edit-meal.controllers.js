@@ -33,9 +33,9 @@
                 newMeal.date = new Date(
                     $scope.date.getFullYear(),
                     $scope.date.getMonth(),
-                    $scope.date.getDate(),
-                    $scope.time, 0, 0
+                    $scope.date.getDate()
                 );
+                newMeal.time = $scope.time;
 
                 //edit
                 if (meal) {

@@ -15,26 +15,26 @@
                 <!-- MAXIMUM CALORIES PER DAY -->
                 <md-input-container class="md-block">
                     <label>Expected number of calories per day</label>
-                    <input name="maximum_calories" ng-model="maximumCaloriesPerDay" min="0" max="10000">
+                    <input name="maximum_calories" ng-model="user.maximumCaloriesPerDay" min="0" max="10000">
                 </md-input-container>
 
                 <md-subheader class="settings-meal-types-title">Meal Types</md-subheader>
                 <!-- MEAL TYPES -->
-                <div layout="row" ng-repeat="type in mealTypes">
+                <div layout="row" ng-repeat="type in user.mealTypes">
                     <!-- Type -->
                     <md-input-container>
                         <label>Type</label>
-                        <input disabled type="text" ng-model="mealTypes[$index].type" md-placeholder="Enter Type" minlength="1" maxLength="12">
+                        <input disabled type="text" ng-model="user.mealTypes[$index].type" md-placeholder="Enter Type" minlength="1" maxLength="12">
                     </md-input-container>
                     <!-- Time From -->
                     <md-input-container>
                         <label>From</label>
-                        <input disabled type="number" ng-model="mealTypes[$index].timeFrom" md-placeholder="Enter Type" min="0" max="23">
+                        <input disabled type="number" ng-model="user.mealTypes[$index].timeFrom" md-placeholder="Enter Type" min="0" max="23">
                     </md-input-container>
                     <!-- Time To -->
                     <md-input-container>
                         <label>To</label>
-                        <input disabled type="number" ng-model="mealTypes[$index].timeTo" md-placeholder="Enter Type" min="0" max="23">
+                        <input disabled type="number" ng-model="user.mealTypes[$index].timeTo" md-placeholder="Enter Type" min="0" max="23">
                     </md-input-container>
                 </div>
             </div>

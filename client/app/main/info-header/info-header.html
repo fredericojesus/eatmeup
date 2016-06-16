@@ -3,18 +3,37 @@
 
     <div layout-fill class="ih-info-container">
         <div class="ih-consumed">
-            <span>Today you've consumed</span>
+            <span ng-if="!isManager">Today you've consumed</span>
+            <span ng-if="isManager">{{::userShown.username}} today have consumed</span>
         </div>
 
         <div class="ih-calories-wrapper">
-            <div class="ih-calories" ng-class="{'ih-calories-warn': todayCalories > maximumCaloriesPerDay}">
+            <div class="ih-calories" ng-class="{'ih-calories-warn': todayCalories > userShown.maximumCaloriesPerDay}">
                 <span>{{todayCalories}}</span>
                 <span>calories</span>
             </div>
             <div class="ih-calories-message">
-                <span ng-if="todayCalories < maximumCaloriesPerDay">You're on track! (less than {{maximumCaloriesPerDay}} calories)</span>
-                <span ng-if="todayCalories > maximumCaloriesPerDay">You've exceeded your limit! (more than {{maximumCaloriesPerDay}})</span>
-                <span ng-if="todayCalories === maximumCaloriesPerDay">You're in your limit! ({{maximumCaloriesPerDay}} calories)</span>
+                <!-- Regular user -->
+                <span ng-if="todayCalories < userShown.maximumCaloriesPerDay && !isManager">
+                    You're on track! (less than {{userShown.maximumCaloriesPerDay}} calories)
+                </span>
+                <span ng-if="todayCalories > userShown.maximumCaloriesPerDay && !isManager">
+                    You've exceeded your limit! (more than {{userShown.maximumCaloriesPerDay}})
+                </span>
+                <span ng-if="todayCalories === userShown.maximumCaloriesPerDay && !isManager">
+                    You're in your limit! ({{userShown.maximumCaloriesPerDay}} calories)
+                </span>
+
+                <!-- Manager user -->
+                <span ng-if="todayCalories < userShown.maximumCaloriesPerDay && isManager">
+                    {{::userShown.username}} is on track! (less than {{userShown.maximumCaloriesPerDay}} calories)
+                </span>
+                <span ng-if="todayCalories > userShown.maximumCaloriesPerDay && isManager">
+                    {{::userShown.username}} has exceeded the limit! (more than {{userShown.maximumCaloriesPerDay}})
+                </span>
+                <span ng-if="todayCalories === userShown.maximumCaloriesPerDay && isManager">
+                    {{::userShown.username}} is in the limit! ({{userShown.maximumCaloriesPerDay}} calories)
+                </span>
             </div>
         </div>
     </div>

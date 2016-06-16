@@ -7,7 +7,8 @@ var mealSchema = Schema({
     creator: { type: Schema.Types.ObjectId, ref: 'User' },
     description: String,
     calories: Number,
-    date: Date
+    date: Date,
+    time: Number //number between 0 and 23
     // createdOn: { type: Date, default: Date.now }
 });
 

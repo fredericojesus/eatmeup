@@ -13,13 +13,16 @@ var userSchema = Schema({
     username: String,
     alias: String,
     password: String,
-    role: [String],
+    roles: [String],
     maximumCaloriesPerDay: { type: Number, default: 3000 },
     mealTypes: [mealType],
     createdOn: { type: Date, default: Date.now }
 });
 
 userSchema.pre('save', function (next) {
+    this.roles = [];
+    this.roles.push('regular');
+
     var breakFast = {
         type: 'Breakfast',
         timeFrom: 8,

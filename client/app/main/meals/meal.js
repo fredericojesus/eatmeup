@@ -18,8 +18,7 @@
 
         function getDate() {
             var date = new Date(this.date);
-            var hours = date.getHours();
-            var minutes = date.getMinutes();
+            var hours = this.time;
 
             return date.toLocaleDateString() + ' at ' + hours + 'H';
         }

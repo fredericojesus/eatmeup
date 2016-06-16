@@ -5,18 +5,26 @@
         .module('app.header')
         .controller('HeaderController', HeaderController);
 
-    HeaderController.$inject = ['$scope', '$mdDialog', '$state', 'authService'];
+    HeaderController.$inject = ['$scope', '$mdDialog', '$state', '$stateParams', 'authService'];
     /*@ngInject*/
-    function HeaderController($scope, $mdDialog, $state, authService) {
+    function HeaderController($scope, $mdDialog, $state, $stateParams, authService) {
         $scope.authService = authService;
-
+        $scope.isManager = false;
+        //originatorEv is used so that the close dialog animation animates towards button
         var originatorEv;
-        $scope.openMenu = function ($mdOpenMenu, ev) {
+        
+        //functions
+        $scope.openMenu = openMenu;
+        $scope.openSettings = openSettings;
+        $scope.logout = logout;
+
+        function openMenu($mdOpenMenu, ev) {
+            $scope.isManager = $stateParams.username && authService.currentUser().username !== $stateParams.username ? true : false;
             originatorEv = ev;
             $mdOpenMenu(ev);
         };
 
-        $scope.openSettings = function (ev) {
+        function openSettings(ev) {
             var dialogOptions = {
                 controller: 'SettingsController',
                 templateUrl: 'app/header/settings/settings.html',
@@ -30,7 +38,7 @@
             });
         };
 
-        $scope.logout = function () {
+        function logout() {
             var confirm = $mdDialog.confirm()
                 .title('Logout')
                 .textContent('Are you sure you want to logout?')

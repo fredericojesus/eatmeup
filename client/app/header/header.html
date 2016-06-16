@@ -14,7 +14,7 @@
     
             <md-menu-content md-position-mode="target-right target" width="4">
                 <md-menu-item>
-                    <md-button ng-click="openSettings($event)">
+                    <md-button ng-click="openSettings($event)" ng-disabled="isManager">
                         <md-icon md-svg-icon="action:settings" md-menu-align-target></md-icon>
                         Settings
                     </md-button>

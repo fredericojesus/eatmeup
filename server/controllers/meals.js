@@ -1,5 +1,6 @@
 'use strict';
 
+var mongoose = require('mongoose');
 var Meal = require('../models/meal.js');
 
 module.exports = {
@@ -15,14 +16,6 @@ module.exports = {
 function getMeals(req, res, next) {
     console.log('Retrieving meals...');
 
-    // Meal.find({creator: req.user._id})
-    //     .sort({ date: 1 })
-    //     .exec(
-    //         function (err, meals) {
-    //             res.status(200).send(meals);
-    //         }
-    //     );
-
     var dateFrom = new Date(2016, 0, 1);
     var dateTo = new Date();
     dateTo.setHours(23);
@@ -30,7 +23,6 @@ function getMeals(req, res, next) {
     var timeFrom = 0;
     var timeTo = 23;
     if (req.query.dateTo && req.query.dateFrom && req.query.timeFrom && req.query.timeTo) {
-        console.log(req.query);
         dateFrom = new Date(req.query.dateFrom);
         dateTo = new Date(req.query.dateTo);
         dateTo.setHours(23);
@@ -40,17 +32,8 @@ function getMeals(req, res, next) {
     }
 
     Meal.aggregate({
-        $project: {
-            name: 1,
-            creator: 1,
-            description: 1,
-            calories: 1,
-            date: 1,
-            time: { $hour: '$date' },
-        }
-    }, {
         $match: {
-            creator: req.user._id,
+            creator: mongoose.Types.ObjectId(req.query.userId),
             date: {
                 $gte: dateFrom,
                 $lte: dateTo
@@ -62,7 +45,8 @@ function getMeals(req, res, next) {
         }
     }, {
         $sort: {
-            date: -1
+            date: -1,
+            time: -1
         }
     }, function (err, result) {
         if (err) {
@@ -88,6 +72,7 @@ function createMeal(req, res, next) {
         description: req.body.description,
         calories: req.body.calories,
         date: req.body.date,
+        time: req.body.time
     });
 
     meal.save(req, function (err, meal) {
@@ -112,6 +97,7 @@ function updateMeal(req, res, next) {
         meal.description = req.body.description;
         meal.calories = req.body.calories;
         meal.date = req.body.date;
+        meal.time = req.body.time;
 
         meal.save(function (err, meal) {
             if (err) {
@@ -137,7 +123,7 @@ function deleteMeal(req, res, next) {
 }
 
 function getTodayUserCalories(req, res, next) {
-    console.log('Retrieving calories consumed today by ' + req.user.username);
+    console.log('Retrieving calories consumed today by ' + req.params.userId);
 
     var start = new Date();
     start.setHours(0, 0, 0, 0);
@@ -153,24 +139,24 @@ function getTodayUserCalories(req, res, next) {
             }
         }
     }, {
-            $group: {
-                _id: null,
-                totalCalories: {
-                    $sum: "$calories"
-                }
+        $group: {
+            _id: null,
+            totalCalories: {
+                $sum: "$calories"
             }
-        }, function (err, result) {
-            if (err) {
-                console.log(err);
-                return res.status(500).end();
-            }
+        }
+    }, function (err, result) {
+        if (err) {
+            console.log(err);
+            return res.status(500).end();
+        }
 
-            if (result.length) {
-                console.log(result[0].totalCalories);
-                return res.status(200).send(result[0]);
-            }
+        if (result.length) {
+            console.log(result[0].totalCalories);
+            return res.status(200).send(result[0]);
+        }
 
-            console.log('No meals found today...')
-            res.status(200).send();
-        });
+        console.log('No meals found today...')
+        res.status(200).send();
+    });
 }

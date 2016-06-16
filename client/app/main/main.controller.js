@@ -4,9 +4,9 @@
     angular.module('app')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['$rootScope', '$scope', '$state', '$mdDialog', '$mdMedia', 'authService', 'Meal', 'isAuthorized'];
+    MainController.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$mdDialog', 'Meal', 'authService', 'userShown', 'isAuthorized'];
     /*@ngInject*/
-    function MainController($rootScope, $scope, $state, $mdDialog, $mdMedia, authService, Meal, isAuthorized) {
+    function MainController($rootScope, $scope, $state, $stateParams, $mdDialog, Meal, authService, userShown, isAuthorized) {
         if (!isAuthorized) {
             return $state.go('main');
         }
@@ -15,6 +15,7 @@
         $scope.mealsList = [];
         $scope.isFilterApplied = false;
         $scope.filterTitle = '';
+        $scope.isManager = $stateParams.username && authService.currentUser().username !== $stateParams.username ? true : false;
 
         //functions
         $scope.addEditMeal = addEditMeal;
@@ -32,6 +33,7 @@
          */
         function getMeals(dateFrom, dateTo, timeFrom, timeTo) {
             Meal.query({
+                userId: userShown.getUserShown()._id,
                 dateFrom: dateFrom,
                 dateTo: dateTo,
                 timeFrom: timeFrom,

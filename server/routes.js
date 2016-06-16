@@ -16,6 +16,7 @@ router.get('/logout', auth.logout);
 
 //USERS ROUTES
 router.get('/user', users.getCurrentUser);
+router.get('/user/:username', users.getUserByUsername);
 router.put('/user', users.updateUser);
 
 //MEALS ROUTES
@@ -23,7 +24,7 @@ router.get('/meals', meals.getMeals);
 router.post('/meals', meals.createMeal);
 router.put('/meals/:_id', meals.updateMeal);
 router.delete('/meals/:_id', meals.deleteMeal);
-router.get('/meals/todayCalories', meals.getTodayUserCalories);
+router.get('/meals/todayCalories/:userId', meals.getTodayUserCalories);
 
 //FOUR0FOUR
 router.get('/*', four0four.notFoundMiddleware);
