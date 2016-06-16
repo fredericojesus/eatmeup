@@ -4,9 +4,9 @@
     angular.module('app.header')
         .controller('SettingsController', SettingsController);
 
-    SettingsController.$inject = ['$rootScope', '$scope', '$mdDialog', '$mdToast', 'userShown', 'User'];
+    SettingsController.$inject = ['$rootScope', '$scope', '$mdDialog', 'toast', 'userShown', 'User'];
     /*@ngInject*/
-    function SettingsController($rootScope, $scope, $mdDialog, $mdToast, userShown, User) {
+    function SettingsController($rootScope, $scope, $mdDialog, toast, userShown, User) {
         $scope.user = userShown.getUserShown();                
         //prevent making duplicate calls
         var isSavingUser = false;
@@ -39,17 +39,7 @@
 
         function handleErrorSavingUser(err) {
             var message = 'Something went wrong when saving user. Please try again.';
-            showToast(message);
-        }
-
-        function showToast(message) {
-            var toast = $mdToast.simple()
-                .textContent(message)
-                .action('CLOSE')
-                .highlightAction(true)
-                .position('bottom')
-                .hideDelay(3000);
-            $mdToast.show(toast);
+            toast.showToast(message);
         }
     }
 })();

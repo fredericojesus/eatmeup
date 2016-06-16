@@ -58,7 +58,7 @@
                                 return false;
                             });
                     },
-                    setUserShown: function ($stateParams, User, userShown) {
+                    setUserShown: function ($stateParams, User, userShown, toast) {
                         User.get({username: $stateParams.username}).$promise
                             .then(function (user) {
                                 return userShown.setUserShown(user);

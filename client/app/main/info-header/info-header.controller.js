@@ -7,10 +7,14 @@
     InfoHeaderController.$inject = ['$scope', '$http', '$stateParams', 'authService', 'userShown'];
     /*@ngInject*/
     function InfoHeaderController($scope, $http, $stateParams, authService, userShown) {
+        $scope.userShown = userShown.getUserShown();
+        //show message User not found if isManager
+        if (!$scope.userShown.username) {
+            $scope.usernameParams = $stateParams.username;
+        }
         $scope.maximumCaloriesPerDay = 0;
         $scope.todayCalories = 0;
         $scope.isManager = $stateParams.username && authService.currentUser().username !== $stateParams.username ? true : false;
-        $scope.userShown = userShown.getUserShown();
 
         //set today's consumed calories
         $http.get('/api/meals/todayCalories/' + $scope.userShown._id)

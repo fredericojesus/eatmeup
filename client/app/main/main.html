@@ -4,7 +4,7 @@
 <md-toolbar ng-if="isFilterApplied" class="md-accent filter-toolbar">
     <div class="md-toolbar-tools">
         <h4>
-            <span>{{::filterTitle}}</span>
+            <span>{{filterTitle}}</span>
         </h4>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancelFilter()">
@@ -20,7 +20,7 @@
 </div>
 
 <!-- FILTER MEALS BUTTON -->
-<md-button ng-click="filterMeals($event)" class="md-fab md-accent-500 main-filter" aria-label="Filter Meals">
+<md-button ng-click="filterMeals($event)" class="md-fab md-accent-500 main-filter" ng-disabled="userNotFound" aria-label="Filter Meals">
     <md-icon class="color-white" md-svg-icon="content:filter_list"></md-icon>
     <md-tooltip md-direction="left" md-delay="delayTooltip">Filter Meals</md-tooltip>
 </md-button>

@@ -5,6 +5,7 @@
         'app.auth',
         'app.header',
         'app.main',
+        'app.utils',
         'ngMaterial',
         'ngMdIcons',
         'ui.router',

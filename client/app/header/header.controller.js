@@ -22,7 +22,7 @@
             $scope.isManager = $stateParams.username && authService.currentUser().username !== $stateParams.username ? true : false;
             originatorEv = ev;
             $mdOpenMenu(ev);
-        };
+        }
 
         function openSettings(ev) {
             var dialogOptions = {
@@ -36,7 +36,7 @@
             $mdDialog.show(dialogOptions).then(function () {
                 
             });
-        };
+        }
 
         function logout() {
             var confirm = $mdDialog.confirm()
@@ -55,7 +55,7 @@
                 .then(function () {
                     $state.go('auth');
                 });
-        };
+        }
     }
 
 })();

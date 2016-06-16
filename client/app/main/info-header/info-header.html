@@ -3,11 +3,12 @@
 
     <div layout-fill class="ih-info-container">
         <div class="ih-consumed">
-            <span ng-if="!isManager">Today you've consumed</span>
-            <span ng-if="isManager">{{::userShown.username}} today have consumed</span>
+            <span ng-if="!isManager && !usernameParams">Today you've consumed</span>
+            <span ng-if="isManager && !usernameParams">{{::userShown.username}} today have consumed</span>
+            <span ng-if="isManager && usernameParams">User {{::usernameParams}} not found!</span>
         </div>
 
-        <div class="ih-calories-wrapper">
+        <div class="ih-calories-wrapper" ng-if="!usernameParams">
             <div class="ih-calories" ng-class="{'ih-calories-warn': todayCalories > userShown.maximumCaloriesPerDay}">
                 <span>{{todayCalories}}</span>
                 <span>calories</span>

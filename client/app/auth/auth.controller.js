@@ -5,9 +5,9 @@
         .module('app.auth')
         .controller('AuthController', AuthController);
 
-    AuthController.$inject = ['$scope', '$state', '$mdToast', 'authService'];
+    AuthController.$inject = ['$scope', '$state', 'authService', 'toast'];
     /*@ngInject*/
-    function AuthController($scope, $state, $mdToast, authService) {
+    function AuthController($scope, $state, authService, toast) {
         $scope.username = '';
         $scope.password = '';
 
@@ -19,7 +19,7 @@
                             $state.go('main');
                         }).catch(function (err) {
                             if (err) {
-                                showToast(err);
+                                toast.showToast(err);
                             }
                         });
                     break;
@@ -29,22 +29,12 @@
                             $state.go('main');
                         }).catch(function (err) {
                             if (err) {
-                                showToast(err); 
+                                toast.showToast(err); 
                             }
                         });
                     break;
             }
         };
-
-        function showToast(errorMessage) {
-            var toast = $mdToast.simple()
-                .textContent(errorMessage)
-                .action('CLOSE')
-                .highlightAction(true)
-                .position('bottom')
-                .hideDelay(3000);
-            $mdToast.show(toast);
-        }
     }
 
 })();

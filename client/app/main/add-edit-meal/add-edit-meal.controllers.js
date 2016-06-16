@@ -4,9 +4,9 @@
     angular.module('app.main')
         .controller('AddEditMealController', AddEditMealController);
 
-    AddEditMealController.$inject = ['$scope', '$mdDialog', '$mdToast', 'Meal', 'meal'];
+    AddEditMealController.$inject = ['$scope', '$mdDialog', 'toast', 'Meal', 'meal'];
     /*@ngInject*/
-    function AddEditMealController($scope, $mdDialog, $mdToast, Meal, meal) {
+    function AddEditMealController($scope, $mdDialog, toast, Meal, meal) {
         //if meal exists, we will edit that meal
         $scope.title = meal ? 'Edit Meal' : 'Add Meal';
         $scope.addEditText = meal ? 'Save' : 'Add';
@@ -14,7 +14,7 @@
         $scope.description = meal ? meal.description : '';
         $scope.calories = meal ? meal.calories : '';
         $scope.date = meal ? new Date(meal.date) : new Date();
-        $scope.time = $scope.date.getHours();
+        $scope.time = meal ? meal.time : $scope.date.getHours();
         //prevent creating duplicate meals
         var isSavingMeal = false;
 
@@ -63,7 +63,7 @@
 
         function handleErrorSavingMeal(err) {
             var message = 'Something went wrong when saving your meal. Please try again.';
-            showToast(message);
+            toast.showToast(message);
             isSavingMeal = false;
         }
 
@@ -78,26 +78,18 @@
                 errorMessage = 'Please enter the calories of your meal';
             } else if (!$scope.date) {
                 errorMessage = 'Please enter the date you have eaten your meal';
-            } else if (!$scope.time) {
+            } 
+            //time can be 0
+            else if (!$scope.time && $scope.time !== 0) {
                 errorMessage = 'Please enter the time you have eaten your meal';
             }
 
             if (errorMessage) {
-                showToast(errorMessage);
+                toast.showToast(errorMessage);
                 return false;
             }
 
             return true;
-        }
-
-        function showToast(message) {
-            var toast = $mdToast.simple()
-                .textContent(message)
-                .action('CLOSE')
-                .highlightAction(true)
-                .position('bottom')
-                .hideDelay(3000);
-            $mdToast.show(toast);
         }
     }
 })();

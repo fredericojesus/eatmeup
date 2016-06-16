@@ -132,7 +132,7 @@ function getTodayUserCalories(req, res, next) {
 
     Meal.aggregate({
         $match: {
-            creator: req.user._id,
+            creator: mongoose.Types.ObjectId(req.params.userId),
             date: {
                 $gte: start,
                 $lte: end

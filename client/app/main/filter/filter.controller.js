@@ -4,9 +4,9 @@
     angular.module('app.main')
         .controller('FilterController', FilterController);
 
-    FilterController.$inject = ['$scope', '$mdDialog', '$mdToast', 'authService'];
+    FilterController.$inject = ['$scope', '$mdDialog', 'toast', 'authService'];
     /*@ngInject*/
-    function FilterController($scope, $mdDialog, $mdToast, authService) {
+    function FilterController($scope, $mdDialog, toast, authService) {
         $scope.mealType = '';
         $scope.mealTypes = {};
         $scope.dateFrom = undefined;
@@ -56,21 +56,11 @@
             }
 
             if (errorMessage) {
-                showToast(errorMessage);
+                toast.showToast(errorMessage);
                 return false;
             }
 
             return true;
-        }
-
-        function showToast(message) {
-            var toast = $mdToast.simple()
-                .textContent(message)
-                .action('CLOSE')
-                .highlightAction(true)
-                .position('bottom')
-                .hideDelay(3000);
-            $mdToast.show(toast);
         }
     }
 

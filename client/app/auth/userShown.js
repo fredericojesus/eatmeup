@@ -19,7 +19,6 @@
         return service;
 
         function getUserShown() {
-            console.log(_user);
             return _user;
         }
 
